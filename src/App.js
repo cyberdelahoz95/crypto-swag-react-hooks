@@ -1,24 +1,32 @@
-import React, { useState }  from 'react'
+import React, { useState } from "react";
 
-import Header from './components/Header'
-import Cryptos from './components/Cryptos'
-import './App.css';
+import "./App.css";
+import ThemeContext from "./context/ThemeContext";
+import Header from "./components/Header";
+import Cryptos from "./components/Cryptos";
+
+let mode = false;
+if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+	mode = true;
+}
 
 function App() {
-  const [darkModeActive, setDarkModeActive] = useState(false)
-  const handleClick = () => {
-      setDarkModeActive(!darkModeActive)
-  }  
-  return (
-    <div className={`App ${darkModeActive ? "dark-mode":"light-mode"}`}>      
-      <section className="section">
-      <Header handleDarkModeSwitcher={handleClick} darkModeActive={darkModeActive} />
-    <div className="container is-flex is-flex-direction-row is-align-content-center is-justify-content-center is-flex-wrap-wrap">
-      <Cryptos darkModeActive={darkModeActive} />
-    </div>
-  </section>
-    </div>
-  );
+	const [darkModeActive, setDarkModeActive] = useState(mode);
+	const toggleDarkModel = () => {
+		setDarkModeActive(!darkModeActive);
+	};
+	return (
+		<ThemeContext.Provider value={{ toggleDarkModel, darkModeActive }}>
+			<div className={`App ${darkModeActive ? "dark-mode" : "light-mode"}`}>
+				<section className="section">
+					<Header />
+					<div className="container is-flex is-flex-direction-row is-align-content-center is-justify-content-center is-flex-wrap-wrap">
+						<Cryptos />
+					</div>
+				</section>
+			</div>
+		</ThemeContext.Provider>
+	);
 }
 
 export default App;

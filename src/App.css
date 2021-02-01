@@ -5,6 +5,10 @@ body {
 .crypto-card {
 	width: 300px;
 }
+.is-fav {
+	border-color: #ffe08a;
+	border-style: solid;
+}
 
 .Header {
 	text-align: center;
