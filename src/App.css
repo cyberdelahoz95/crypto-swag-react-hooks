@@ -1,38 +1,32 @@
-.App {
-  text-align: center;
+html,
+body {
+	background-color: #f4f4f4;
+}
+.crypto-card {
+	width: 300px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.Header {
+	text-align: center;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.media {
+	min-height: 75px;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+/* Dark Mode */
+.dark-mode {
+	background-color: black;
 }
-
-.App-link {
-  color: #61dafb;
+.dark-mode h1 {
+	color: white;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.dark-mode .card {
+	background-color: #2b2c28;
+}
+.dark-mode .card .card-content,
+.dark-mode .card .card-content .title,
+.dark-mode .card .card-content .subtitle {
+	color: #fffafb !important;
+}
+.dark-mode .card .card-content .icon {
+	color: rgb(238, 82, 82) !important;
 }

@@ -1,23 +1,22 @@
-import logo from './logo.svg';
+import React, { useState }  from 'react'
+
+import Header from './components/Header'
+import Cryptos from './components/Cryptos'
 import './App.css';
 
 function App() {
+  const [darkModeActive, setDarkModeActive] = useState(false)
+  const handleClick = () => {
+      setDarkModeActive(!darkModeActive)
+  }  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={`App ${darkModeActive ? "dark-mode":"light-mode"}`}>      
+      <section className="section">
+      <Header handleDarkModeSwitcher={handleClick} darkModeActive={darkModeActive} />
+    <div className="container is-flex is-flex-direction-row is-align-content-center is-justify-content-center is-flex-wrap-wrap">
+      <Cryptos darkModeActive={darkModeActive} />
+    </div>
+  </section>
     </div>
   );
 }
