@@ -3,6 +3,8 @@ import _ from "lodash";
 
 import CyptoCard from "./Crypto";
 
+require('dotenv').config();
+
 const initialState = {
     favorites: [],
 };
@@ -28,7 +30,7 @@ const Cryptos = () => {
     const [cryptos, setCryptos] = useState([]);
     const [state, dispatch] = useReducer(favoritesReducer, initialState);
     useEffect(() => {
-        fetch("https://api.nomics.com/v1/currencies/ticker?key=7d401de3c7a4137fd0978d44dc0058c4&per-page=50&page=1")
+        fetch(process.env.API_URL)
             .then((res) => res.json())
             .then((data) => setCryptos(data));
     }, []);
