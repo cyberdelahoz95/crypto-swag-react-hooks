@@ -1,6 +1,10 @@
 html,
 body {
 	background-color: #f4f4f4;
+	height: 100%;
+}
+#root {
+	height: 100%;
 }
 .crypto-card {
 	width: 300px;
@@ -15,6 +19,9 @@ body {
 }
 .media {
 	min-height: 75px;
+}
+.search-input {
+	max-width: 50%;
 }
 /* Dark Mode */
 .dark-mode {
@@ -33,4 +40,9 @@ body {
 }
 .dark-mode .card .card-content .icon {
 	color: rgb(238, 82, 82) !important;
+}
+
+.dark-mode .search-input {
+	background-color: #2b2c28;
+	color: white;
 }

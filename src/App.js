@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import "./App.css";
 import ThemeContext from "./context/ThemeContext";
 import Header from "./components/Header";
@@ -19,10 +18,8 @@ function App() {
 		<ThemeContext.Provider value={{ toggleDarkModel, darkModeActive }}>
 			<div className={`App ${darkModeActive ? "dark-mode" : "light-mode"}`}>
 				<section className="section">
-					<Header />
-					<div className="container is-flex is-flex-direction-row is-align-content-center is-justify-content-center is-flex-wrap-wrap">
-						<Cryptos />
-					</div>
+					<Header />					
+					<Cryptos />					
 				</section>
 			</div>
 		</ThemeContext.Provider>
