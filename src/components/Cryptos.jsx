@@ -2,6 +2,7 @@ import React, { useState, useEffect, useReducer, useMemo, useRef } from "react";
 import _ from "lodash";
 
 import CyptoCard from "./Crypto";
+import Loader from './Loader';
 import favoritesReducer from '../reducers'
 import env from "../env"
 
@@ -13,14 +14,19 @@ const Cryptos = () => {
     const [cryptos, setCryptos] = useState([]);
     const searchInput = useRef(null)
     const [search, setSearch] = useState("");
+    const [isLoading, setIsLoading] = useState(true);
 
     //const handleSearch = (event) => setSearch(event.target.value);
     const handleSearch = () => setSearch(searchInput.current.value);
 
     useEffect(() => {
+        setIsLoading(true)
         fetch(env.API_URL)
             .then((res) => res.json())
-            .then((data) => setCryptos(data));
+            .then((data) => {
+                setCryptos(data)
+                setIsLoading(false)
+            });
     }, []);
 
     const [state, dispatch] = useReducer(favoritesReducer, initialState);
@@ -30,7 +36,7 @@ const Cryptos = () => {
     const filteredCryptos = useMemo(() => cryptos.filter((crypto) => crypto.name.toLowerCase().includes(search.toLowerCase())), [cryptos, search]);
 
     const { favorites } = state;
-
+    console.log({isLoading});
     return (
         <>
             <div className="mt-1 is-flex is-flex-direction-row is-align-content-center is-justify-content-center is-flex-wrap-wrap">
@@ -41,12 +47,12 @@ const Cryptos = () => {
                     value={search}
                     onChange={handleSearch} />
             </div>
-            <div className="is-flex is-flex-direction-row is-align-content-center is-justify-content-center is-flex-wrap-wrap">
+            {(isLoading)?<Loader />:<div className="is-flex is-flex-direction-row is-align-content-center is-justify-content-center is-flex-wrap-wrap">
                 {filteredCryptos.map((crypto) => {
                     const isFav = _.includes(favorites, crypto.symbol);
                     return <CyptoCard isFav={isFav} {...crypto} key={crypto.id} addToFavs={addToFavs} removeFromFavs={removeFromFavs} />;
                 })}
-            </div>
+            </div>}
         </>
     );
 };
