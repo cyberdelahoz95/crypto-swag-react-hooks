@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./App.css";
 import ThemeContext from "./context/ThemeContext";
 import Header from "./components/Header";
-import Cryptos from "./components/Cryptos";
+import CryptosPage from "./components/CryptosPage";
 
 let mode = false;
 if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
@@ -19,7 +19,7 @@ function App() {
 			<div className={`App ${darkModeActive ? "dark-mode" : "light-mode"}`}>
 				<section className="section">
 					<Header />					
-					<Cryptos />					
+					<CryptosPage />					
 				</section>
 			</div>
 		</ThemeContext.Provider>
