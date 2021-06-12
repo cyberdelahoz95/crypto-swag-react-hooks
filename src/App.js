@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./App.css";
 import ThemeContext from "./context/ThemeContext";
 import Header from "./components/Header";
-import CryptosPage from "./components/CryptosPage";
+import CryptosPage from "./containers/CryptosPage";
 
 let mode = false;
 if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {

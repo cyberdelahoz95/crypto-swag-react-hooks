@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useReducer, useMemo, useRef } from "react";
 
-import CryptoList from "./Cryptos";
-import Loader from "./Loader";
-import LoadMoreButton from "./Button";
-import Search from "./Search";
+import CryptoList from "../components/Cryptos";
+import Loader from "../components/Loader";
+import LoadMoreButton from "../components/Button";
+import Search from "../components/Search";
 
 import favoritesReducer from "../reducers";
 import env from "../env";
