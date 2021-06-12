@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useReducer, useMemo, useRef } from "react";
-import _ from "lodash";
 
 import CryptoList from "./Cryptos";
 import Loader from "./Loader";

@@ -1,4 +1,5 @@
 import React from "react";
+import _ from "lodash";
 import CyptoCard from "./Crypto";
 
 const Cryptos = ({ filteredCryptos, favorites, addToFavs, removeFromFavs }) => {
