@@ -2,17 +2,18 @@ import React, { useState, useEffect, useReducer, useMemo, useRef } from "react";
 
 import CryptoList from "../components/Cryptos";
 import Loader from "../components/Loader";
-import LoadMoreButton from "../components/Button";
+import PaginationButtons from "../components/Buttons";
 import Search from "../components/Search";
 
-import favoritesReducer from "../reducers";
+import reducers from "../reducers";
 import env from "../env";
 
 const initialState = {
   favorites: [],
+  page: 1
 };
 
-const CryptosPage = () => {
+const CryptosPage = React.memo(() => {
   const [cryptos, setCryptos] = useState([]);
   const searchInput = useRef(null);
   const [search, setSearch] = useState("");
@@ -21,21 +22,13 @@ const CryptosPage = () => {
   //const handleSearch = (event) => setSearch(event.target.value);
   const handleSearch = () => setSearch(searchInput.current.value);
 
-  useEffect(() => {
-    setIsLoading(true);
-    fetch(env.API_URL)
-      .then((res) => res.json())
-      .then((data) => {
-        setCryptos(data);
-        setIsLoading(false);
-      });
-  }, []);
-
-  const [state, dispatch] = useReducer(favoritesReducer, initialState);
+  const [state, dispatch] = useReducer(reducers, initialState);
   const addToFavs = (newFavorite) =>
     dispatch({ type: "ADD_TO_FAVS", payload: newFavorite });
   const removeFromFavs = (favoriteToBeRemoved) =>
     dispatch({ type: "REMOVE_FROM_FAVS", payload: favoriteToBeRemoved });
+  const increasePage = () => dispatch({type:"INCREASE_PAGE"});
+  const decreasePage = () => dispatch({type:"DECREASE_PAGE"});
 
   const filteredCryptos = useMemo(
     () =>
@@ -44,8 +37,16 @@ const CryptosPage = () => {
       ),
     [cryptos, search]
   );
-
-  const { favorites } = state;
+  const { favorites, page } = state;
+  useEffect(() => {
+    setIsLoading(true);
+    fetch(`${env.API_URL}${page}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setCryptos(data);
+        setIsLoading(false);
+      });
+  }, [page]);
   return (
     <>
       <Search
@@ -63,8 +64,12 @@ const CryptosPage = () => {
           removeFromFavs={removeFromFavs}
         />
       )}
-      <LoadMoreButton />
+      <PaginationButtons 
+        increasePage={increasePage}
+        decreasePage={decreasePage}
+        page={page}
+      />
     </>
   );
-};
+});
 export default CryptosPage;

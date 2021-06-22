@@ -1,6 +1,6 @@
 import React from "react";
 
-const SearchInput = ({searchInput, search, handleSearch}) => {
+const SearchInput = React.memo(({searchInput, search, handleSearch}) => {
     return (
         <div className="mt-1 is-flex is-flex-direction-row is-justify-content-center is-flex-wrap-wrap">
         <input
@@ -11,5 +11,5 @@ const SearchInput = ({searchInput, search, handleSearch}) => {
             onChange={handleSearch} />
     </div>
     )
-};
+});
 export default SearchInput;
