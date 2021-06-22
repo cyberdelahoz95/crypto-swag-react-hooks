@@ -1,9 +1,11 @@
-import React, { useState, useEffect, useReducer, useMemo, useRef } from "react";
+import React, { useState, useReducer, useMemo, useRef } from "react";
 
 import CryptoList from "../components/Cryptos";
 import Loader from "../components/Loader";
 import PaginationButtons from "../components/Buttons";
 import Search from "../components/Search";
+
+import useCryptos from '../hooks/useCryptos'
 
 import reducers from "../reducers";
 import env from "../env";
@@ -14,11 +16,8 @@ const initialState = {
 };
 
 const CryptosPage = React.memo(() => {
-  const [cryptos, setCryptos] = useState([]);
   const searchInput = useRef(null);
   const [search, setSearch] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
-
   //const handleSearch = (event) => setSearch(event.target.value);
   const handleSearch = () => setSearch(searchInput.current.value);
 
@@ -30,6 +29,8 @@ const CryptosPage = React.memo(() => {
   const increasePage = () => dispatch({type:"INCREASE_PAGE"});
   const decreasePage = () => dispatch({type:"DECREASE_PAGE"});
 
+  const { favorites, page } = state;
+  const [cryptos, isLoading] = useCryptos(env.API_URL, page)
   const filteredCryptos = useMemo(
     () =>
       cryptos.filter((crypto) =>
@@ -37,16 +38,6 @@ const CryptosPage = React.memo(() => {
       ),
     [cryptos, search]
   );
-  const { favorites, page } = state;
-  useEffect(() => {
-    setIsLoading(true);
-    fetch(`${env.API_URL}${page}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setCryptos(data);
-        setIsLoading(false);
-      });
-  }, [page]);
   return (
     <>
       <Search
